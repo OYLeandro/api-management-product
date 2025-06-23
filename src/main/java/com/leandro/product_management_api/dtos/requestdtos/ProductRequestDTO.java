@@ -1,4 +1,4 @@
-package com.leandro.product_management_api.domain.dtos.requestdtos;
+package com.leandro.product_management_api.dtos.requestdtos;
 
 import java.math.BigDecimal;
 

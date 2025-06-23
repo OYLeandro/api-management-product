@@ -1,4 +1,4 @@
-package com.leandro.product_management_api.domain.dtos.responsedtos;
+package com.leandro.product_management_api.dtos.responsedtos;
 
 import com.leandro.product_management_api.domain.entity.ProductEntity;
 
