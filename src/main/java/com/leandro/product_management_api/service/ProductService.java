@@ -7,10 +7,8 @@ import com.leandro.product_management_api.dtos.responsedtos.ProductResponseDTO;
 import com.leandro.product_management_api.mapper.ProductMapper;
 import com.leandro.product_management_api.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
