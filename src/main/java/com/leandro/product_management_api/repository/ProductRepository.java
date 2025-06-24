@@ -12,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<ProductEntity, Long>{
 
-   Optional<Page<ProductEntity>> findByCategory(String category, Pageable pageable);
+   Page<ProductEntity> findByCategory(String category, Pageable pageable);
 }

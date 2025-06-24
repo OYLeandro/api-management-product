@@ -2,6 +2,7 @@ package com.leandro.product_management_api.service;
 
 
 import com.leandro.product_management_api.domain.entity.ProductEntity;
+import com.leandro.product_management_api.dtos.createdtos.ProductCreateDTO;
 import com.leandro.product_management_api.dtos.requestdtos.ProductRequestDTO;
 import com.leandro.product_management_api.dtos.responsedtos.ProductResponseDTO;
 import com.leandro.product_management_api.mapper.ProductMapper;
@@ -20,9 +21,10 @@ public class ProductService {
     private final ProductRepository repository;
     private final ProductMapper mapper;
 
-    public ProductResponseDTO registerProduct(ProductRequestDTO requestDTO){
-        ProductEntity newEntity = mapper.toEntity(requestDTO);
-        return mapper.toDto(newEntity);
+    public ProductResponseDTO registerProduct(ProductCreateDTO createDTO){
+        ProductEntity entity = mapper.toEntity(createDTO);
+        ProductEntity saved = repository.save(entity);
+        return mapper.toDto(saved);
     }
 
     @Transactional(readOnly = true)
@@ -39,18 +41,16 @@ public class ProductService {
         if(category == null || category.isBlank()){
             list = repository.findAll(pageable);
         }else {
-            list = repository.findByCategory(category, pageable)
-                    .orElseThrow(() -> new IllegalArgumentException("Category not found with name "+category));
+            list = repository.findByCategory(category, pageable);
         }
         return list.map(mapper::toDto);
     }
 
     public void delete(Long id){
-        if(id == null && id < 0){
-            throw new IllegalArgumentException("Id invalid");
-        }
+        if(id == null || id < 0){throw new IllegalArgumentException("Id invalid");}
         ProductEntity product = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found with ID "+id));
+        repository.delete(product);
     }
 
 }
