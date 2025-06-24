@@ -28,4 +28,5 @@ public class ProductEntity {
 
     @Column(nullable = false)
     private String category;
+
 }

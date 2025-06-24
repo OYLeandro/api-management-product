@@ -27,6 +27,13 @@ public class ProductService {
         return mapper.toDto(saved);
     }
 
+    public ProductResponseDTO getProduct(Long id){
+        if(id == null || id < 0){throw new IllegalArgumentException();}
+        ProductEntity product = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found with ID "+ id));
+        return mapper.toDto(product);
+    }
+
     @Transactional(readOnly = true)
     public List<ProductResponseDTO> listAll(){
         List<ProductEntity> list = repository.findAll();
