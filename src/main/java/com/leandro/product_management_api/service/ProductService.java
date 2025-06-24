@@ -3,6 +3,7 @@ package com.leandro.product_management_api.service;
 
 import com.leandro.product_management_api.domain.entity.ProductEntity;
 import com.leandro.product_management_api.dtos.createdtos.ProductCreateDTO;
+import com.leandro.product_management_api.dtos.requestdtos.ProductRequestDTO;
 import com.leandro.product_management_api.dtos.responsedtos.ProductResponseDTO;
 import com.leandro.product_management_api.mapper.ProductMapper;
 import com.leandro.product_management_api.repository.ProductRepository;
@@ -24,6 +25,13 @@ public class ProductService {
         ProductEntity entity = mapper.toEntity(createDTO);
         ProductEntity saved = repository.save(entity);
         return mapper.toDto(saved);
+    }
+
+    public ProductResponseDTO getProduct(Long id){
+        if(id == null || id < 0){throw new IllegalArgumentException();}
+        ProductEntity product = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found with ID "+ id));
+        return mapper.toDto(product);
     }
 
     @Transactional(readOnly = true)
