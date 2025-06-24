@@ -49,7 +49,7 @@ public class ProductService {
 
     public void delete(Long id){
         if(id == null && id < 0){
-                throw new IllegalArgumentException("Id invalid");
+            throw new IllegalArgumentException("Id invalid");
         }
         ProductEntity product = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Product not found with ID "+id));
