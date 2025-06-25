@@ -1,7 +1,6 @@
 package com.leandro.product_management_api.controller;
 
 
-import com.leandro.product_management_api.dtos.createdtos.ProductCreateDTO;
 import com.leandro.product_management_api.dtos.requestdtos.ProductRequestDTO;
 import com.leandro.product_management_api.dtos.responsedtos.ProductResponseDTO;
 import com.leandro.product_management_api.service.ProductService;
