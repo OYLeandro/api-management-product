@@ -1,7 +1,9 @@
 package com.leandro.product_management_api.service;
 
 import com.leandro.product_management_api.domain.entity.UserEntity;
+import com.leandro.product_management_api.dtos.requestdtos.AuthRequestDTO;
 import com.leandro.product_management_api.dtos.requestdtos.UserRequestDto;
+import com.leandro.product_management_api.dtos.responsedtos.AuthResponseDTO;
 import com.leandro.product_management_api.dtos.responsedtos.UserResponseDto;
 import com.leandro.product_management_api.dtos.updatedto.UserUpdateDTO;
 import com.leandro.product_management_api.mapper.UserMapper;
@@ -9,6 +11,7 @@ import com.leandro.product_management_api.repository.UserRepository;
 import com.leandro.product_management_api.role.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +44,22 @@ public class UserService  {
         return mapper.toDto(saved);
     }
 
+    public String login(AuthRequestDTO dto){
+        var email = dto.email() != null ? dto.email().trim() : null;
+        var password = dto.password() != null ? dto.password().trim() : null;
+
+        UserEntity user = repository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Invalid email or password") );
+
+        if (!passwordEncoder.matches(password, user.getPassword()) ){
+            throw new RuntimeException("Invalid email or password");
+        }
+        return tokenService.generateToken(user);
+    }
+
     public UserResponseDto updateUser(Long id, UserUpdateDTO dto){
+
+
        UserEntity user = repository.findById(id)
                .orElseThrow(() -> new RuntimeException("User not found with ID "+ id));
 
