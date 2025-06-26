@@ -6,11 +6,13 @@ import com.leandro.product_management_api.dtos.requestdtos.UserRequestDto;
 import com.leandro.product_management_api.dtos.responsedtos.AuthResponseDTO;
 import com.leandro.product_management_api.dtos.responsedtos.UserResponseDto;
 import com.leandro.product_management_api.dtos.updatedto.UserUpdateDTO;
+import com.leandro.product_management_api.mapper.AuthMapper;
 import com.leandro.product_management_api.mapper.UserMapper;
 import com.leandro.product_management_api.repository.UserRepository;
 import com.leandro.product_management_api.role.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,11 +27,8 @@ public class UserService  {
     private final BCryptPasswordEncoder passwordEncoder;
 
     public UserResponseDto registerUser(UserRequestDto dto){
-        String email = dto.email() != null ? dto.email().trim() : null;
-        String password = dto.password() != null ? dto.password().trim() : null;
-
-        validateEmail(email);
-        validatePassword(password);
+        String email = dto.email().trim();
+        String password = dto.password().trim();
 
         if(repository.existsByEmail(email) ){
           throw new RuntimeException("Email already registered");
@@ -44,22 +43,16 @@ public class UserService  {
         return mapper.toDto(saved);
     }
 
-    public String login(AuthRequestDTO dto){
-        var email = dto.email() != null ? dto.email().trim() : null;
-        var password = dto.password() != null ? dto.password().trim() : null;
+    public AuthResponseDTO login(AuthRequestDTO dto){
+        var authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(dto.email().trim(), dto.password().trim()) );
 
-        UserEntity user = repository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Invalid email or password") );
-
-        if (!passwordEncoder.matches(password, user.getPassword()) ){
-            throw new RuntimeException("Invalid email or password");
-        }
-        return tokenService.generateToken(user);
+        var user = (UserEntity) authentication.getPrincipal();
+        var token = tokenService.generateToken(user);
+        return new AuthResponseDTO(token);
     }
 
     public UserResponseDto updateUser(Long id, UserUpdateDTO dto){
-
-
        UserEntity user = repository.findById(id)
                .orElseThrow(() -> new RuntimeException("User not found with ID "+ id));
 
@@ -70,6 +63,9 @@ public class UserService  {
        if (email != null){
            if (email.isBlank()){
                throw new IllegalArgumentException("Email cannot be empty");
+           }
+           if (repository.existsByEmail(email) && !user.getEmail().equalsIgnoreCase(email) ){
+               throw new RuntimeException("Email already registered by another user");
            }
            user.setEmail(email);
        }
@@ -94,19 +90,5 @@ public class UserService  {
             throw new RuntimeException("User not found with id "+id);
         }
         repository.deleteById(id);
-    }
-
-    private String validateEmail(String email){
-        if (email == null || email.isBlank()){
-            throw new IllegalArgumentException("Email cannot be null or empty");
-        }
-        return email;
-    }
-
-    private String validatePassword(String password){
-        if (password == null || password.isBlank()){
-            throw new IllegalArgumentException("Password cannot be null or empty");
-        }
-        return password;
     }
 }
