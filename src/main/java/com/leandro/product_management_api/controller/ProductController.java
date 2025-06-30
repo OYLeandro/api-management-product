@@ -40,4 +40,10 @@ public class ProductController {
     public ResponseEntity<Page<ProductResponseDTO>> lisWithPage(@RequestParam(required = false)String category, Pageable pageable){
         return ResponseEntity.ok(service.listWithPage(category, pageable));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }
