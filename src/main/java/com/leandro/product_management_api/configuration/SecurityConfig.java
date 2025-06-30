@@ -26,10 +26,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/register").permitAll()
                         .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers("/products").permitAll()
-                        .requestMatchers("/products/{id}").permitAll()
-                        .requestMatchers("/products/list").permitAll()
-                        .requestMatchers("/products/page").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
