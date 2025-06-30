@@ -38,9 +38,7 @@ public class ProductService {
     @Transactional(readOnly = true)
     public List<ProductResponseDTO> listAll(){
         List<ProductEntity> list = repository.findAll();
-        return list.stream()
-                .map(mapper::toDto)
-                .toList();
+        return mapper.toDtoList(list);
     }
 
     @Transactional(readOnly = true)
