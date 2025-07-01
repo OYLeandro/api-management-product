@@ -1,4 +1,4 @@
-package com.leandro.product_management_api.domain.entity;
+package com.leandro.product_management_api.entity;
 
 
 import jakarta.persistence.*;

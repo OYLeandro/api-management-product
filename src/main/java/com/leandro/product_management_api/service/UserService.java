@@ -1,6 +1,6 @@
 package com.leandro.product_management_api.service;
 
-import com.leandro.product_management_api.domain.entity.UserEntity;
+import com.leandro.product_management_api.entity.UserEntity;
 import com.leandro.product_management_api.dtos.requestdtos.AuthRequestDTO;
 import com.leandro.product_management_api.dtos.requestdtos.UserRequestDto;
 import com.leandro.product_management_api.dtos.responsedtos.AuthResponseDTO;
