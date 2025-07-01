@@ -1,6 +1,6 @@
 package com.leandro.product_management_api.repository;
 
-import com.leandro.product_management_api.domain.entity.UserEntity;
+import com.leandro.product_management_api.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

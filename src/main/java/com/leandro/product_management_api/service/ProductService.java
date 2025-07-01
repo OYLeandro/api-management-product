@@ -1,7 +1,7 @@
 package com.leandro.product_management_api.service;
 
 
-import com.leandro.product_management_api.domain.entity.ProductEntity;
+import com.leandro.product_management_api.entity.ProductEntity;
 import com.leandro.product_management_api.dtos.requestdtos.ProductRequestDTO;
 import com.leandro.product_management_api.dtos.responsedtos.ProductResponseDTO;
 import com.leandro.product_management_api.dtos.updatedto.ProductUpdateDTO;

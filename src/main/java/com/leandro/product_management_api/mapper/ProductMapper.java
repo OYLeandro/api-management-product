@@ -1,6 +1,6 @@
 package com.leandro.product_management_api.mapper;
 
-import com.leandro.product_management_api.domain.entity.ProductEntity;
+import com.leandro.product_management_api.entity.ProductEntity;
 import com.leandro.product_management_api.dtos.requestdtos.ProductRequestDTO;
 import com.leandro.product_management_api.dtos.responsedtos.ProductResponseDTO;
 import org.mapstruct.Mapper;
