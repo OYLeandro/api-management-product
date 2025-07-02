@@ -1,4 +1,4 @@
-package com.leandro.product_management_api.entity;
+package com.leandro.product_management_api.infra.entity;
 
 import com.leandro.product_management_api.core.domain.role.UserRole;
 import jakarta.persistence.*;

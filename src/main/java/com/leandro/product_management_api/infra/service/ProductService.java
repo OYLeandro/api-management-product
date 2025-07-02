@@ -1,12 +1,12 @@
-package com.leandro.product_management_api.service;
+package com.leandro.product_management_api.infra.service;
 
 
-import com.leandro.product_management_api.entity.ProductEntity;
-import com.leandro.product_management_api.dtos.requestdtos.ProductRequestDTO;
-import com.leandro.product_management_api.dtos.responsedtos.ProductResponseDTO;
-import com.leandro.product_management_api.dtos.updatedto.ProductUpdateDTO;
-import com.leandro.product_management_api.mapper.ProductMapper;
-import com.leandro.product_management_api.repository.ProductRepository;
+import com.leandro.product_management_api.infra.entity.ProductEntity;
+import com.leandro.product_management_api.infra.dtos.requestdtos.ProductRequestDTO;
+import com.leandro.product_management_api.infra.dtos.responsedtos.ProductResponseDTO;
+import com.leandro.product_management_api.infra.dtos.updatedto.ProductUpdateDTO;
+import com.leandro.product_management_api.infra.mapper.ProductMapper;
+import com.leandro.product_management_api.infra.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

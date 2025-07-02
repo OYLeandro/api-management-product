@@ -1,9 +1,9 @@
-package com.leandro.product_management_api.controller;
+package com.leandro.product_management_api.infra.controller;
 
 
-import com.leandro.product_management_api.dtos.requestdtos.ProductRequestDTO;
-import com.leandro.product_management_api.dtos.responsedtos.ProductResponseDTO;
-import com.leandro.product_management_api.service.ProductService;
+import com.leandro.product_management_api.infra.dtos.requestdtos.ProductRequestDTO;
+import com.leandro.product_management_api.infra.dtos.responsedtos.ProductResponseDTO;
+import com.leandro.product_management_api.infra.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

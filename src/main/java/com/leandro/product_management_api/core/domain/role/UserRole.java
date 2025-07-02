@@ -1,4 +1,4 @@
-package com.leandro.product_management_api.role;
+package com.leandro.product_management_api.core.domain.role;
 
 
 public enum UserRole {

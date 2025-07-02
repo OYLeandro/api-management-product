@@ -1,6 +1,6 @@
-package com.leandro.product_management_api.dtos.responsedtos;
+package com.leandro.product_management_api.infra.dtos.responsedtos;
 
-import com.leandro.product_management_api.entity.ProductEntity;
+import com.leandro.product_management_api.infra.entity.ProductEntity;
 
 import java.math.BigDecimal;
 

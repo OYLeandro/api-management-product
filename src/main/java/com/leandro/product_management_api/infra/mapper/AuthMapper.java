@@ -1,8 +1,8 @@
-package com.leandro.product_management_api.mapper;
+package com.leandro.product_management_api.infra.mapper;
 
-import com.leandro.product_management_api.entity.UserEntity;
-import com.leandro.product_management_api.dtos.requestdtos.AuthRequestDTO;
-import com.leandro.product_management_api.dtos.responsedtos.AuthResponseDTO;
+import com.leandro.product_management_api.infra.entity.UserEntity;
+import com.leandro.product_management_api.infra.dtos.requestdtos.AuthRequestDTO;
+import com.leandro.product_management_api.infra.dtos.responsedtos.AuthResponseDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

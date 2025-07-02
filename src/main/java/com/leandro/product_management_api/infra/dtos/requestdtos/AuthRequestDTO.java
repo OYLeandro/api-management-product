@@ -1,4 +1,4 @@
-package com.leandro.product_management_api.dtos.requestdtos;
+package com.leandro.product_management_api.infra.dtos.requestdtos;
 
 import jakarta.validation.constraints.NotBlank;
 

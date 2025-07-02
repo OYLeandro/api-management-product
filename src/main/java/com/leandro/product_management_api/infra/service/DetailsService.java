@@ -1,6 +1,6 @@
-package com.leandro.product_management_api.service;
+package com.leandro.product_management_api.infra.service;
 
-import com.leandro.product_management_api.repository.UserRepository;
+import com.leandro.product_management_api.infra.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

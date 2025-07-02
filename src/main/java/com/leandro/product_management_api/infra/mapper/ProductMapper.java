@@ -1,8 +1,8 @@
-package com.leandro.product_management_api.mapper;
+package com.leandro.product_management_api.infra.mapper;
 
-import com.leandro.product_management_api.entity.ProductEntity;
-import com.leandro.product_management_api.dtos.requestdtos.ProductRequestDTO;
-import com.leandro.product_management_api.dtos.responsedtos.ProductResponseDTO;
+import com.leandro.product_management_api.infra.entity.ProductEntity;
+import com.leandro.product_management_api.infra.dtos.requestdtos.ProductRequestDTO;
+import com.leandro.product_management_api.infra.dtos.responsedtos.ProductResponseDTO;
 import org.mapstruct.Mapper;
 
 import java.util.List;

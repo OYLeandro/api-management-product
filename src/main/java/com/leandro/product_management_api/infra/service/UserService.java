@@ -1,13 +1,13 @@
-package com.leandro.product_management_api.service;
+package com.leandro.product_management_api.infra.service;
 
-import com.leandro.product_management_api.entity.UserEntity;
-import com.leandro.product_management_api.dtos.requestdtos.AuthRequestDTO;
-import com.leandro.product_management_api.dtos.requestdtos.UserRequestDto;
-import com.leandro.product_management_api.dtos.responsedtos.AuthResponseDTO;
-import com.leandro.product_management_api.dtos.responsedtos.UserResponseDto;
-import com.leandro.product_management_api.dtos.updatedto.UserUpdateDTO;
-import com.leandro.product_management_api.mapper.UserMapper;
-import com.leandro.product_management_api.repository.UserRepository;
+import com.leandro.product_management_api.infra.entity.UserEntity;
+import com.leandro.product_management_api.infra.dtos.requestdtos.AuthRequestDTO;
+import com.leandro.product_management_api.infra.dtos.requestdtos.UserRequestDto;
+import com.leandro.product_management_api.infra.dtos.responsedtos.AuthResponseDTO;
+import com.leandro.product_management_api.infra.dtos.responsedtos.UserResponseDto;
+import com.leandro.product_management_api.infra.dtos.updatedto.UserUpdateDTO;
+import com.leandro.product_management_api.infra.mapper.UserMapper;
+import com.leandro.product_management_api.infra.repository.UserRepository;
 import com.leandro.product_management_api.core.domain.role.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

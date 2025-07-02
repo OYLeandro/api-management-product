@@ -1,4 +1,4 @@
-package com.leandro.product_management_api.dtos.updatedto;
+package com.leandro.product_management_api.infra.dtos.updatedto;
 
 import com.leandro.product_management_api.core.domain.role.UserRole;
 
