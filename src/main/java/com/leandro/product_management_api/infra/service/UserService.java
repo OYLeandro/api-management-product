@@ -8,7 +8,7 @@ import com.leandro.product_management_api.dtos.responsedtos.UserResponseDto;
 import com.leandro.product_management_api.dtos.updatedto.UserUpdateDTO;
 import com.leandro.product_management_api.mapper.UserMapper;
 import com.leandro.product_management_api.repository.UserRepository;
-import com.leandro.product_management_api.role.UserRole;
+import com.leandro.product_management_api.core.domain.role.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

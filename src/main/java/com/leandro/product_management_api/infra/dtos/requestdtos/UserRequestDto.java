@@ -1,6 +1,6 @@
 package com.leandro.product_management_api.dtos.requestdtos;
 
-import com.leandro.product_management_api.role.UserRole;
+import com.leandro.product_management_api.core.domain.role.UserRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

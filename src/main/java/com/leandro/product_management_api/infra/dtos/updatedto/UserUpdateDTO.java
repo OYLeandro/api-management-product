@@ -1,6 +1,6 @@
 package com.leandro.product_management_api.dtos.updatedto;
 
-import com.leandro.product_management_api.role.UserRole;
+import com.leandro.product_management_api.core.domain.role.UserRole;
 
 public record UserUpdateDTO(
         String email,

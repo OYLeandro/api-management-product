@@ -17,7 +17,7 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    private static final String issuer = "product-management-api";
+    private static final String issuer = "Product-management-api";
 
     public String generateToken(UserEntity user){
         try{

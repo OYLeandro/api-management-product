@@ -1,6 +1,6 @@
 package com.leandro.product_management_api.entity;
 
-import com.leandro.product_management_api.role.UserRole;
+import com.leandro.product_management_api.core.domain.role.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
