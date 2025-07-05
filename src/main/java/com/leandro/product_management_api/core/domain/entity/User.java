@@ -2,6 +2,7 @@ package com.leandro.product_management_api.core.domain.entity;
 
 import com.leandro.product_management_api.core.domain.exception.EmailInvalidException;
 import com.leandro.product_management_api.core.domain.exception.PasswordInvalidException;
+import com.leandro.product_management_api.core.domain.exception.RoleInvalidException;
 import com.leandro.product_management_api.core.domain.role.UserRole;
 
 public class User {
@@ -13,6 +14,7 @@ public class User {
     public User(String email, String password, UserRole role){
         if(email == null || email.isBlank()){ throw new EmailInvalidException(email);}
         if(password == null || password.isBlank()){throw new PasswordInvalidException(password);}
+        if(role == null){throw new RoleInvalidException();}
         this.email = email.trim();
         this.password = password.trim();
         this.role = role;
