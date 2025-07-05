@@ -13,19 +13,19 @@ public class User {
     public User(String email, String password, UserRole role){
         if(email == null || email.isBlank()){ throw new EmailInvalidException(email);}
         if(password == null || password.isBlank()){throw new PasswordInvalidException(password);}
-        this.email = email;
-        this.password = password;
+        this.email = email.trim();
+        this.password = password.trim();
         this.role = role;
     }
 
     public void updateEmail(String email){
         if (email == null || email.isBlank()){throw new EmailInvalidException("Email invalid "+ email);}
-        this.email = email;
+        this.email = email.trim();
     }
 
     public void updatePassword(String password){
         if (password == null || password.isBlank()){throw new PasswordInvalidException("Password invalid "+ password);}
-        this.password = password;
+        this.password = password.trim();
     }
 
     public Long getId() {
