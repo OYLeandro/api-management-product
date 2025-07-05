@@ -30,6 +30,11 @@ public class User {
         this.password = password.trim();
     }
 
+    public void updateRole(UserRole role){
+        if (role == null){throw new RoleInvalidException();}
+        this.role = role;
+    }
+
     public Long getId() {
         return id;
     }
