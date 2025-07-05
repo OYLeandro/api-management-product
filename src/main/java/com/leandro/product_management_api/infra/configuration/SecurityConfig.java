@@ -1,4 +1,4 @@
-package com.leandro.product_management_api.configuration;
+package com.leandro.product_management_api.infra.configuration;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

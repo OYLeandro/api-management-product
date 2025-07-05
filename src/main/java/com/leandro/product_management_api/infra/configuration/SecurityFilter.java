@@ -1,4 +1,4 @@
-package com.leandro.product_management_api.configuration;
+package com.leandro.product_management_api.infra.configuration;
 
 import com.leandro.product_management_api.infra.service.DetailsService;
 import com.leandro.product_management_api.infra.service.TokenService;
