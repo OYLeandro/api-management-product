@@ -1,7 +1,7 @@
 package com.leandro.product_management_api.infra.configuration;
 
 import com.leandro.product_management_api.infra.service.DetailsService;
-import com.leandro.product_management_api.infra.service.TokenService;
+import com.leandro.product_management_api.infra.service.TokenServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +18,7 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
-    private final TokenService tokenService;
+    private final TokenServiceImpl tokenServiceImpl;
     private final DetailsService detailsService;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -29,8 +29,16 @@ public class SecurityFilter extends OncePerRequestFilter {
             return;
         }
 
-        String username = tokenService.validateToken(token);
-        if(token != null && SecurityContextHolder.getContext().getAuthentication() == null){
+        boolean isValid = tokenServiceImpl.validateToken(token);
+
+        if(isValid && SecurityContextHolder.getContext().getAuthentication() == null){
+            var username = tokenServiceImpl.getUsernameFromToken(token);
+
+            if(username == null){
+                filterChain.doFilter(request, response);
+                return;
+            }
+
             var userDetails = detailsService.loadUserByUsername(username);
             var authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
@@ -42,7 +50,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     private String extractToken(HttpServletRequest request){
         String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith("Bearer")){
+        if (authHeader != null && authHeader.startsWith("Bearer ")){
             return authHeader.substring(7);
         }
         return null;
