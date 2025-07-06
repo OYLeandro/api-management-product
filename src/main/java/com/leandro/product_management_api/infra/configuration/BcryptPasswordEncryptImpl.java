@@ -1,6 +1,6 @@
 package com.leandro.product_management_api.infra.configuration;
 
-import com.leandro.product_management_api.application.security.PasswordEncrypt;
+import com.leandro.product_management_api.application.interfaces.PasswordEncrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 

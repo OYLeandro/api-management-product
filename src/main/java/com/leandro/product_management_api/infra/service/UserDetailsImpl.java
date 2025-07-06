@@ -1,8 +1,7 @@
-package com.leandro.product_management_api.infra.entity;
+package com.leandro.product_management_api.infra.service;
 
+import com.leandro.product_management_api.core.domain.entity.User;
 import com.leandro.product_management_api.core.domain.role.UserRole;
-import jakarta.persistence.*;
-import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,47 +9,32 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
-@Table(name = "Users")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class UserEntity implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class UserDetailsImpl implements UserDetails {
+    private final User user;
 
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
-    private UserRole role;
-
-
-    public UserEntity( String email, String password, UserRole role){
-        this.email = email;
-        this.password = password;
-        this.role = role;
+    public UserDetailsImpl(User user){
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == UserRole.ADMIN){
+        if (user.getRole() == UserRole.ADMIN){
             return List.of(
-            new SimpleGrantedAuthority("ROLE_ADMIN"),
-            new SimpleGrantedAuthority("ROLE_USER"));
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER"));
         }else {
             return List.of(new SimpleGrantedAuthority("ROLE_USER"));
         }
     }
 
     @Override
+    public String getPassword() {
+        return user.getPassword();
+    }
+
+    @Override
     public String getUsername() {
-        return email;
+        return user.getEmail();
     }
 
     @Override

@@ -6,7 +6,7 @@ import com.leandro.product_management_api.infra.dtos.requestdtos.ProductRequestD
 import com.leandro.product_management_api.infra.dtos.responsedtos.ProductResponseDTO;
 import com.leandro.product_management_api.infra.dtos.updatedto.ProductUpdateDTO;
 import com.leandro.product_management_api.infra.mapper.ProductMapper;
-import com.leandro.product_management_api.infra.repository.ProductRepository;
+import com.leandro.product_management_api.infra.repository.JpaProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-    private final ProductRepository repository;
+    private final JpaProductRepository repository;
     private final ProductMapper mapper;
 
     public ProductResponseDTO registerProduct(ProductRequestDTO requestDTO){

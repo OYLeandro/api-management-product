@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface ProductRepository {
     Page<Product> findAll(PageRequest request);
     Product save(Product product);
+    boolean existsById(Long id);
     Optional<Product> findById(Long id);
     void deleteById(Long Id);
     void delete(Product product);

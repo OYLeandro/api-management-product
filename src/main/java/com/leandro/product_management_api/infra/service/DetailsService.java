@@ -1,6 +1,8 @@
 package com.leandro.product_management_api.infra.service;
 
-import com.leandro.product_management_api.infra.repository.UserRepository;
+import com.leandro.product_management_api.core.domain.entity.User;
+import com.leandro.product_management_api.core.domain.exception.UserNotFoundException;
+import com.leandro.product_management_api.core.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,10 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class DetailsService implements UserDetailsService {
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByEmail(username)
+        User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email "+ username));
+
+        return new UserDetailsImpl(user);
     }
 }
