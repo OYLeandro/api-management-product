@@ -30,6 +30,12 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false)
     private UserRole role;
 
+    public UserEntity(String email, String password, UserRole role){
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == UserRole.ADMIN){

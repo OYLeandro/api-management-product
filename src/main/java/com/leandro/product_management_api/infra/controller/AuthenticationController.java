@@ -5,7 +5,6 @@ import com.leandro.product_management_api.infra.dtos.requestdtos.UserRequestDto;
 import com.leandro.product_management_api.infra.dtos.responsedtos.AuthResponseDTO;
 import com.leandro.product_management_api.infra.dtos.responsedtos.UserResponseDto;
 import com.leandro.product_management_api.infra.dtos.updatedto.UserUpdateDTO;
-import com.leandro.product_management_api.infra.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
