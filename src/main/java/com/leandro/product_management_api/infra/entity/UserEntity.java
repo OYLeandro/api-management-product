@@ -30,8 +30,8 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false)
     private UserRole role;
 
-    public UserEntity(Long id, String email, String password, UserRole role){
-        this.id = id;
+
+    public UserEntity( String email, String password, UserRole role){
         this.email = email;
         this.password = password;
         this.role = role;
