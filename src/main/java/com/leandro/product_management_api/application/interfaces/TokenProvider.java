@@ -1,4 +1,4 @@
-package com.leandro.product_management_api.application.security;
+package com.leandro.product_management_api.application.interfaces;
 
 import com.leandro.product_management_api.core.domain.entity.User;
 

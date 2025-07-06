@@ -1,10 +1,8 @@
 package com.leandro.product_management_api.infra.controller;
 
-import com.leandro.product_management_api.infra.dtos.requestdtos.AuthRequestDTO;
-import com.leandro.product_management_api.infra.dtos.requestdtos.UserRequestDto;
-import com.leandro.product_management_api.infra.dtos.responsedtos.AuthResponseDTO;
-import com.leandro.product_management_api.infra.dtos.responsedtos.UserResponseDto;
-import com.leandro.product_management_api.infra.dtos.updatedto.UserUpdateDTO;
+import com.leandro.product_management_api.application.dtos.UserRequestDTO;
+import com.leandro.product_management_api.application.dtos.UserResponseDTO;
+import com.leandro.product_management_api.application.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
     private final UserService service;
 
-    @PostMapping("/register")
-    public ResponseEntity<UserResponseDto> register(@Valid @RequestBody UserRequestDto dto){
-        UserResponseDto user = service.registerUser(dto);
+    @PostMapping("/users")
+    public ResponseEntity<UserResponseDTO> register(@Valid @RequestBody UserRequestDTO dto){
+        UserResponseDTO user = service.register(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
@@ -29,13 +27,13 @@ public class AuthenticationController {
         return ResponseEntity.ok().body(user);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable  Long id){
-        service.deleteUserById(id);
+        service.deleteById(id);
         return ResponseEntity.ok().build();
     }
     @PatchMapping
-    public ResponseEntity<UserResponseDto> updateUser(@RequestBody Long id, UserUpdateDTO updateDTO){
-        return ResponseEntity.ok().body(service.updateUser(id, updateDTO));
+    public ResponseEntity<UserResponseDTO> updateUser(@RequestBody Long id, UserRequestDTO requestDTO){
+        return ResponseEntity.ok().body(service.updateUser(id, requestDTO));
     }
 }
