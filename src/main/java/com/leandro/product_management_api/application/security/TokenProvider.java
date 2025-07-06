@@ -4,6 +4,6 @@ import com.leandro.product_management_api.core.domain.entity.User;
 
 public interface TokenProvider {
     String generateToken(User user);
-    String validateToken(String token);
+    boolean validateToken(String token);
     String getUsernameFromToken(String token);
 }
