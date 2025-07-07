@@ -1,5 +1,7 @@
 package com.leandro.product_management_api.infra.controller;
 
+import com.leandro.product_management_api.application.dtos.AuthRequestDTO;
+import com.leandro.product_management_api.application.dtos.AuthResponseDTO;
 import com.leandro.product_management_api.application.dtos.UserRequestDTO;
 import com.leandro.product_management_api.application.dtos.UserResponseDTO;
 import com.leandro.product_management_api.application.service.UserService;
@@ -22,7 +24,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponseDTO> login(@Valid @RequestBody AuthRequestDTO requestDto){
+    public ResponseEntity<AuthResponseDTO> login( @Valid @RequestBody AuthRequestDTO requestDto){
         AuthResponseDTO user = service.login(requestDto);
         return ResponseEntity.ok().body(user);
     }
