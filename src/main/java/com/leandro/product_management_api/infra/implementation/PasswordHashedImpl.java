@@ -1,8 +1,7 @@
-package com.leandro.product_management_api.infra.persistence;
+package com.leandro.product_management_api.infra.implementation;
 
 import com.leandro.product_management_api.application.interfaces.PasswordHasher;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 

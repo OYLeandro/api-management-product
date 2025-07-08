@@ -1,4 +1,4 @@
-package com.leandro.product_management_api.infra.persistence;
+package com.leandro.product_management_api.infra.implementation;
 
 import com.leandro.product_management_api.core.domain.entity.User;
 import com.leandro.product_management_api.core.domain.repository.UserRepository;
