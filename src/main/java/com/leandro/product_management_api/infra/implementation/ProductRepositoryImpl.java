@@ -1,7 +1,7 @@
 package com.leandro.product_management_api.infra.implementation;
 
 import com.leandro.product_management_api.core.domain.entity.Product;
-import com.leandro.product_management_api.core.domain.pagination.PageResult;
+import com.leandro.product_management_api.application.dtos.PageResultDTO;
 import com.leandro.product_management_api.core.domain.repository.ProductRepository;
 import com.leandro.product_management_api.infra.entity.ProductEntity;
 import com.leandro.product_management_api.infra.mapper.ProductMapper;
@@ -27,7 +27,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public PageResult<Product> findAllPaginated(int page, int size) {
+    public PageResultDTO<Product> findAllPaginated(int page, int size) {
         PageRequest pageable = PageRequest.of(page, size);
         Page <ProductEntity> pageResult = jpaProductRepository.findAll(pageable);
 
@@ -35,7 +35,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .map(ProductMapper::toDomain)
                 .toList();
 
-        return new PageResult<>(
+        return new PageResultDTO<>(
                 products,
                 pageResult.getNumber(),
                 pageResult.getTotalPages(),

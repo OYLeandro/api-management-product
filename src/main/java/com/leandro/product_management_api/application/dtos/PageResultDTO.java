@@ -1,8 +1,8 @@
-package com.leandro.product_management_api.core.domain.pagination;
+package com.leandro.product_management_api.application.dtos;
 
 import java.util.List;
 
-public record PageResult<T>(
+public record PageResultDTO<T>(
         List<T> items,
         int currentPage,
         int totalPage,
