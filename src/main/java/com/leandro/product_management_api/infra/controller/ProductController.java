@@ -1,12 +1,10 @@
 package com.leandro.product_management_api.infra.controller;
 
 
-import com.leandro.product_management_api.infra.dtos.requestdtos.ProductRequestDTO;
-import com.leandro.product_management_api.infra.dtos.responsedtos.ProductResponseDTO;
-import com.leandro.product_management_api.infra.service.ProductService;
+import com.leandro.product_management_api.application.dtos.*;
+import com.leandro.product_management_api.application.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +20,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<ProductResponseDTO> registerProduct(@RequestBody @Valid ProductRequestDTO requestDTO){
-        service.registerProduct(requestDTO);
+        service.register(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -31,19 +29,16 @@ public class ProductController {
         return ResponseEntity.ok(service.getProduct(id));
     }
 
-    @GetMapping("/list")
-    public ResponseEntity<List<ProductResponseDTO>> listAllProduct(){
-        return ResponseEntity.ok(service.listAll());
-    }
-
     @GetMapping("/page")
-    public ResponseEntity<Page<ProductResponseDTO>> lisWithPage(@RequestParam(required = false)String category, Pageable pageable){
-        return ResponseEntity.ok(service.listWithPage(category, pageable));
+    public ResponseEntity<PageResponseDTO<ProductResponseDTO>> listWithPage(
+            @ModelAttribute PageRequestDTO requestDTO
+    ){
+        return ResponseEntity.ok().body(service.listWithPage(requestDTO));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){
-        service.delete(id);
+        service.deleteById(id);
         return ResponseEntity.ok().build();
     }
 }
