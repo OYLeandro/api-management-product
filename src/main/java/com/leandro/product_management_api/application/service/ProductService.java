@@ -1,13 +1,12 @@
 package com.leandro.product_management_api.application.service;
 
-import com.leandro.product_management_api.application.dtos.ProductRequestDTO;
-import com.leandro.product_management_api.application.dtos.ProductResponseDTO;
+import com.leandro.product_management_api.application.dtos.*;
 import com.leandro.product_management_api.core.domain.entity.Product;
 import com.leandro.product_management_api.core.domain.repository.ProductRepository;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -34,5 +33,30 @@ public class ProductService {
                 newProduct.getName(),
                 newProduct.getPrice(),
                 newProduct.getStock(), newProduct.getCategory());
+    }
+
+    public PageResponseDTO<ProductResponseDTO> listWithPage (PageRequestDTO dto){
+            PageResultDTO<Product> result = repository.findAllPaginated(dto.page(), dto.size());
+
+        List<ProductResponseDTO> responseDTOList = result.items().stream()
+                .map(this::toResponseDTO)
+                .toList();
+
+        return new PageResponseDTO<>(
+                responseDTOList,
+                result.currentPage(),
+                result.totalPage(),
+                result.totalItems()
+        );
+    }
+
+    private ProductResponseDTO toResponseDTO(Product product){
+        return new ProductResponseDTO(
+                product.getId(),
+                product.getName(),
+                product.getPrice(),
+                product.getStock(),
+                product.getCategory()
+        );
     }
 }
