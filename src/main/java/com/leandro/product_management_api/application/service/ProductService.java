@@ -2,8 +2,7 @@ package com.leandro.product_management_api.application.service;
 
 import com.leandro.product_management_api.application.dtos.*;
 import com.leandro.product_management_api.core.domain.entity.Product;
-import com.leandro.product_management_api.core.domain.exception.CategoryProductInvalidException;
-import com.leandro.product_management_api.core.domain.exception.ListPageInvalidException;
+import com.leandro.product_management_api.core.domain.exception.*;
 import com.leandro.product_management_api.core.domain.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +22,22 @@ public class ProductService {
         BigDecimal price = dto.price();
         Integer stock = dto.stock();
         String category = dto.category();
-        if (name == null || name.isBlank()){}
-        if (price == null || price.compareTo(BigDecimal.ZERO) < 0){}
-        if (stock == null || stock < 0){}
-        if (category == null || category.isBlank()){}
+
+        if (name == null || name.isBlank()){
+            throw new NameProductInvalidException();
+        }
+
+        if (price == null || price.compareTo(BigDecimal.ZERO) < 0){
+            throw new PriceProductInvalidException();
+        }
+
+        if (stock == null || stock < 0){
+            throw new StockProductInvalidException();
+        }
+
+        if (category == null || category.isBlank()){
+            throw new CategoryProductInvalidException();
+        }
 
         Product newProduct = new Product(name.trim(), price, stock, category.trim());
         repository.save(newProduct);
