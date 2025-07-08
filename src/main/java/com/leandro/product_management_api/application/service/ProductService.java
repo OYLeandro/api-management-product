@@ -4,12 +4,10 @@ import com.leandro.product_management_api.application.dtos.*;
 import com.leandro.product_management_api.core.domain.entity.Product;
 import com.leandro.product_management_api.core.domain.exception.*;
 import com.leandro.product_management_api.core.domain.repository.ProductRepository;
-import com.leandro.product_management_api.infra.mapper.ProductMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
