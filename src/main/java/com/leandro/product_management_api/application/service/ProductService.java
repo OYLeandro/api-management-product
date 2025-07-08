@@ -4,10 +4,12 @@ import com.leandro.product_management_api.application.dtos.*;
 import com.leandro.product_management_api.core.domain.entity.Product;
 import com.leandro.product_management_api.core.domain.exception.*;
 import com.leandro.product_management_api.core.domain.repository.ProductRepository;
+import com.leandro.product_management_api.infra.mapper.ProductMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -15,6 +17,19 @@ public class ProductService {
 
     public ProductService( ProductRepository repository ){
         this.repository = repository;
+    }
+
+    public ProductResponseDTO getProduct (Long id){
+        Product product = repository.findById(id)
+                .orElseThrow(() -> new  ProductNotFoundException("Product not found with id: "+id));
+
+        return new ProductResponseDTO(
+                product.getId(),
+                product.getName(),
+                product.getPrice(),
+                product.getStock(),
+                product.getCategory()
+        );
     }
 
     public ProductResponseDTO register (ProductRequestDTO dto){
