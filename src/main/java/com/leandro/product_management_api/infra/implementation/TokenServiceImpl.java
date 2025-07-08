@@ -1,4 +1,4 @@
-package com.leandro.product_management_api.infra.service;
+package com.leandro.product_management_api.infra.implementation;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
