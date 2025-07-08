@@ -103,6 +103,10 @@ public class ProductService {
         );
     }
 
+    public void deleteById(Long id){
+        repository.deleteById(id);
+    }
+
     private ProductResponseDTO toResponseDTO(Product product){
         return new ProductResponseDTO(
                 product.getId(),
