@@ -16,6 +16,14 @@ public class Product {
         this.category = category;
     }
 
+    public Product(Long id, String name, BigDecimal price, Integer stock, String category){
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.category = category;
+    }
+
     public void updateName (String name){
         this.name = name;
     }
