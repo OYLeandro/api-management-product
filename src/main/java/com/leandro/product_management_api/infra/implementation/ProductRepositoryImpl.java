@@ -27,6 +27,24 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
+    public PageResultDTO<Product> findByCategory(String category, int page, int size) {
+        PageRequest pageable = PageRequest.of(page, size);
+
+        Page <ProductEntity> pageResult = jpaProductRepository.findByCategory(category, pageable);
+
+        List<Product> products = pageResult.getContent().stream()
+                .map(ProductMapper::toDomain)
+                .toList();
+
+        return new PageResultDTO<>(
+                products,
+                pageResult.getNumber(),
+                pageResult.getTotalPages(),
+                pageResult.getTotalElements()
+        );
+    }
+
+    @Override
     public PageResultDTO<Product> findAllPaginated(int page, int size) {
         PageRequest pageable = PageRequest.of(page, size);
         Page <ProductEntity> pageResult = jpaProductRepository.findAll(pageable);
