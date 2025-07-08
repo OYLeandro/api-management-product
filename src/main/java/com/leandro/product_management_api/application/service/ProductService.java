@@ -2,6 +2,8 @@ package com.leandro.product_management_api.application.service;
 
 import com.leandro.product_management_api.application.dtos.*;
 import com.leandro.product_management_api.core.domain.entity.Product;
+import com.leandro.product_management_api.core.domain.exception.CategoryProductInvalidException;
+import com.leandro.product_management_api.core.domain.exception.ListPageInvalidException;
 import com.leandro.product_management_api.core.domain.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +38,34 @@ public class ProductService {
     }
 
     public PageResponseDTO<ProductResponseDTO> listWithPage (PageRequestDTO dto){
-            PageResultDTO<Product> result = repository.findAllPaginated(dto.page(), dto.size());
+        if (dto == null || dto.size() <= 0 || dto.page() < 0 ){
+            throw new ListPageInvalidException("Parameters cannot be null and negative ");
+        }
+
+        PageResultDTO<Product> result = repository.findAllPaginated(dto.page(), dto.size());
+
+        List<ProductResponseDTO> responseDTOList = result.items().stream()
+                .map(this::toResponseDTO)
+                .toList();
+
+        return new PageResponseDTO<>(
+                responseDTOList,
+                result.currentPage(),
+                result.totalPage(),
+                result.totalItems()
+        );
+    }
+
+    public PageResponseDTO<ProductResponseDTO> listByCategory (String category, PageRequestDTO dto){
+        if (category == null || category.isBlank()){
+            throw new CategoryProductInvalidException();
+        }
+
+        if (dto == null || dto.size() <= 0 || dto.page() < 0 ){
+            throw new ListPageInvalidException("Parameters cannot be null and negative ");
+        }
+
+        PageResultDTO<Product> result = repository.findByCategory(category, dto.page(), dto.size());
 
         List<ProductResponseDTO> responseDTOList = result.items().stream()
                 .map(this::toResponseDTO)
