@@ -5,10 +5,12 @@ import com.leandro.product_management_api.core.domain.pagination.PageRequest;
 import com.leandro.product_management_api.core.domain.entity.Product;
 import com.leandro.product_management_api.core.domain.pagination.Page;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository {
-    Page<Product> findAll(PageRequest request);
+    List<Product> findAll();
+    Page<Product> findAllPaginated(PageRequest request);
     Product save(Product product);
     boolean existsById(Long id);
     Optional<Product> findById(Long id);
