@@ -1,6 +1,5 @@
 package com.leandro.product_management_api.infra.controller;
 
-
 import com.leandro.product_management_api.application.dtos.*;
 import com.leandro.product_management_api.application.service.ProductService;
 import jakarta.validation.Valid;
