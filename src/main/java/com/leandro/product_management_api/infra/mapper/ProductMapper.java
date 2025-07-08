@@ -1,19 +1,15 @@
 package com.leandro.product_management_api.infra.mapper;
 
+import com.leandro.product_management_api.core.domain.entity.Product;
 import com.leandro.product_management_api.infra.entity.ProductEntity;
-import com.leandro.product_management_api.infra.dtos.requestdtos.ProductRequestDTO;
-import com.leandro.product_management_api.infra.dtos.responsedtos.ProductResponseDTO;
-import org.mapstruct.Mapper;
 
-import java.util.List;
+public class ProductMapper {
 
-@Mapper(componentModel = "spring")
-public interface ProductMapper {
+    public static Product toDomain(ProductEntity entity){
+        return new Product(entity.getId(), entity.getName(), entity.getPrice(), entity.getStock(), entity.getCategory());
+    }
 
-    ProductResponseDTO toDto(ProductEntity entity);
-
-    ProductEntity toEntity(ProductRequestDTO requestDTO);
-
-
-    List<ProductResponseDTO> toDtoList (List<ProductEntity> entity);
+    public static ProductEntity toEntity(Product product){
+        return new ProductEntity(product.getId(), product.getName(), product.getPrice(), product.getStock(), product.getCategory());
+    }
 }
