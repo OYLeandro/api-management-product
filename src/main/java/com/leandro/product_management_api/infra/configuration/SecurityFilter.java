@@ -1,7 +1,7 @@
 package com.leandro.product_management_api.infra.configuration;
 
-import com.leandro.product_management_api.infra.service.DetailsService;
-import com.leandro.product_management_api.infra.service.TokenServiceImpl;
+import com.leandro.product_management_api.infra.implementation.DetailsServiceImpl;
+import com.leandro.product_management_api.infra.implementation.TokenServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
     private final TokenServiceImpl tokenServiceImpl;
-    private final DetailsService detailsService;
+    private final DetailsServiceImpl detailsServiceImpl;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = extractToken(request);
@@ -39,7 +39,7 @@ public class SecurityFilter extends OncePerRequestFilter {
                 return;
             }
 
-            var userDetails = detailsService.loadUserByUsername(username);
+            var userDetails = detailsServiceImpl.loadUserByUsername(username);
             var authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
             authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
