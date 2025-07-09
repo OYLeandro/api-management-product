@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 @Primary
 public class JpaUserRepositoryImpl implements UserRepository {
-    private final @Lazy JpaUserRepository jpaUserRepository;
+    private final JpaUserRepository jpaUserRepository;
 
     public JpaUserRepositoryImpl(@Lazy JpaUserRepository jpaUserRepository){
         this.jpaUserRepository = jpaUserRepository;
