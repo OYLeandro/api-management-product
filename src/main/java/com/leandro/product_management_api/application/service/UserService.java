@@ -11,18 +11,19 @@ import com.leandro.product_management_api.core.domain.entity.User;
 import com.leandro.product_management_api.core.domain.exception.*;
 import com.leandro.product_management_api.core.domain.repository.UserRepository;
 import com.leandro.product_management_api.core.domain.role.UserRole;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 public class UserService {
-    private final UserRepository repository;
-    private final PasswordEncrypt passwordEncrypt;
-    private final TokenProvider tokenProvider;
-    private final PasswordHasher passwordHasher;
+    private final @Lazy UserRepository repository;
+    private final @Lazy PasswordEncrypt passwordEncrypt;
+    private final @Lazy TokenProvider tokenProvider;
+    private final @Lazy PasswordHasher passwordHasher;
 
-    public UserService(UserRepository repository, PasswordEncrypt passwordEncrypt, TokenProvider tokenProvider, PasswordHasher passwordHasher){
+    public UserService(@Lazy UserRepository repository, PasswordEncrypt passwordEncrypt, TokenProvider tokenProvider, PasswordHasher passwordHasher){
         this.tokenProvider = tokenProvider;
         this.passwordHasher = passwordHasher;
         this.repository = repository;

@@ -1,6 +1,5 @@
 package com.leandro.product_management_api.infra.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 

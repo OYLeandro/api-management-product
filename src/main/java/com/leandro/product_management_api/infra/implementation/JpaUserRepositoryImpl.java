@@ -4,15 +4,19 @@ import com.leandro.product_management_api.core.domain.entity.User;
 import com.leandro.product_management_api.core.domain.repository.UserRepository;
 import com.leandro.product_management_api.infra.entity.UserEntity;
 import com.leandro.product_management_api.infra.repository.JpaUserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
+@Primary
 public class JpaUserRepositoryImpl implements UserRepository {
-    private final JpaUserRepository jpaUserRepository;
+    private final @Lazy JpaUserRepository jpaUserRepository;
 
-    public JpaUserRepositoryImpl(JpaUserRepository jpaUserRepository){
+    public JpaUserRepositoryImpl(@Lazy JpaUserRepository jpaUserRepository){
         this.jpaUserRepository = jpaUserRepository;
     }
 
