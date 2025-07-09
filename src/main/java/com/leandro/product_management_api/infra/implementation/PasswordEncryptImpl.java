@@ -1,16 +1,15 @@
-package com.leandro.product_management_api.infra.configuration;
+package com.leandro.product_management_api.infra.implementation;
 
 import com.leandro.product_management_api.application.interfaces.PasswordEncrypt;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BcryptPasswordEncryptImpl implements PasswordEncrypt {
-    private final PasswordEncoder encoder;
+@RequiredArgsConstructor
+public class PasswordEncryptImpl implements PasswordEncrypt {
 
-    public BcryptPasswordEncryptImpl(PasswordEncoder encoder){
-        this.encoder = encoder;
-    }
+    private final PasswordEncoder encoder;
 
     @Override
     public String encrypt(String password) {

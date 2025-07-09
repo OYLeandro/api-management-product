@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PasswordHashedImpl implements PasswordHasher {
 
-
     private final PasswordEncoder passwordEncoder;
 
     @Override

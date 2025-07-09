@@ -1,58 +1,64 @@
 package com.leandro.product_management_api.infra.configuration;
 
-import com.leandro.product_management_api.infra.implementation.DetailsServiceImpl;
-import com.leandro.product_management_api.infra.implementation.TokenServiceImpl;
+import com.leandro.product_management_api.application.interfaces.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@Component
 @RequiredArgsConstructor
 public class SecurityFilter extends OncePerRequestFilter {
-    private final TokenServiceImpl tokenServiceImpl;
-    private final DetailsServiceImpl detailsServiceImpl;
+
+    private final TokenProvider tokenProvider;
+    private final @Lazy UserDetailsService userDetailsService;
+
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
+
         String token = extractToken(request);
 
-        if (token == null){
-            filterChain.doFilter(request, response);
-            return;
-        }
+        if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            boolean isValid = tokenProvider.validateToken(token);
 
-        boolean isValid = tokenServiceImpl.validateToken(token);
+            if (isValid) {
+                String username = tokenProvider.getUsernameFromToken(token);
 
-        if(isValid && SecurityContextHolder.getContext().getAuthentication() == null){
-            var username = tokenServiceImpl.getUsernameFromToken(token);
+                if (username != null) {
+                    var userDetails = userDetailsService.loadUserByUsername(username);
 
-            if(username == null){
-                filterChain.doFilter(request, response);
-                return;
+                    var authToken = new UsernamePasswordAuthenticationToken(
+                            userDetails,
+                            null,
+                            userDetails.getAuthorities()
+                    );
+
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
             }
-
-            var userDetails = detailsServiceImpl.loadUserByUsername(username);
-            var authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
-            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authToken);
         }
+
         filterChain.doFilter(request, response);
     }
 
-    private String extractToken(HttpServletRequest request){
+    private String extractToken(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith("Bearer ")){
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
         }
+
         return null;
     }
 }

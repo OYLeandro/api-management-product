@@ -1,7 +1,5 @@
 package com.leandro.product_management_api.core.domain.repository;
 
-
-import com.leandro.product_management_api.application.dtos.PageRequestDTO;
 import com.leandro.product_management_api.core.domain.entity.Product;
 import com.leandro.product_management_api.application.dtos.PageResultDTO;
 
