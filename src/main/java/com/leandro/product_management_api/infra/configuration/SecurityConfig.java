@@ -1,6 +1,7 @@
 package com.leandro.product_management_api.infra.configuration;
 
 import com.leandro.product_management_api.application.interfaces.TokenProvider;
+import com.leandro.product_management_api.infra.implementation.DetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -20,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilter securityFilter(TokenProvider tokenProvider, @Lazy UserDetailsService userDetailsService) {
+    public SecurityFilter securityFilter(TokenProvider tokenProvider, @Lazy DetailsServiceImpl userDetailsService) {
         return new SecurityFilter(tokenProvider, userDetailsService);
     }
 
